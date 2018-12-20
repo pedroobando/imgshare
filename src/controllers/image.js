@@ -6,8 +6,13 @@ const { randomNumber } = require('../helpers/libs');
 // const Image = require('../models/image');
 const { Image } = require('../models');
 
-ctrl.index = (req, res) => {
-  res.send(`Index page image ${req.param('image_id')}`);
+ctrl.index = async (req, res) => {
+  const image = await Image.findOne({filename: {$regex: req.params.image_id}});
+  console.log(image);
+  res.render('image', {image});
+  // res.send(`Index page image ${req.param('image_id')}`);
+  // console.log(`params: ${req.params.image_id}`)
+  // res.render('image');
 };
 
 ctrl.create = async (req, res) => {
