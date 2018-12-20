@@ -12,8 +12,8 @@ const ImageSchema = new Schema({
 });
 
 ImageSchema.virtual('uniqueId')
-  .get(() => {
-    return this.filename.replace(path.extname(this.filename), '');
+  .get(function () {
+    return this.filename.replace(path.extname(this.filename), '')
   });
 
 
