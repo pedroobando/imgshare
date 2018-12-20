@@ -3,13 +3,23 @@ const path = require('path');
 const fs = require('fs-extra');
 const { randomNumber } = require('../helpers/libs');
 
+// const Image = require('../models/image');
+const { Image } = require('../models');
+
 ctrl.index = (req, res) => {
   res.send(`Index page image ${req.param('image_id')}`);
 };
 
 ctrl.create = async (req, res) => {
   const rutaImagenUpload = 'src/public/upload';
-  const imgUrl = randomNumber();
+
+  let imgUrl = ''; //randomNumber();
+  let imagescoll = [];
+  do {
+    imgUrl = randomNumber();
+    imagescoll = await Image.find({ filename: imgUrl });
+    // console.log(imagescoll);
+  } while (imagescoll.length > 0);
   
   const imageTempPath = req.file.path;
   const extfile = path.extname(req.file.originalname).toLocaleLowerCase();
@@ -20,8 +30,22 @@ ctrl.create = async (req, res) => {
 
   if (extfile === '.png' || extfile === '.jpg' || extfile === '.jpeg' || extfile === '.gif') {
     await fs.rename(imageTempPath, targetPath);
+    const newImage = new Image({
+      title: req.body.title,
+      description: req.body.description,
+      filename: imgUrl + extfile
+    });
+    const imageSaved = await newImage.save();
+    res.send(`Image ${imgUrl + extfile} save work...!`);
+    // res.redirect('/images/:image_id');
+    // console.log(newImage);
+  } else {
+    // elimina la imagen de /temp
+    await fs.unlink(imageTempPath);
+    res.status(500).json({error: 'Only Images are Allowed'});
+
   }
-  res.send('work..!');
+  // res.send('work..!');
 };
 
 ctrl.like = (req, res) => {
