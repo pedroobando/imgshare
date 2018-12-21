@@ -3,9 +3,10 @@
   "version": "1.0.0",
   "description": "Una red social para subir imagenes - esto es un proyecto de Fazt, canal de youtube",
   "video": "https://www.youtube.com/watch?v=TqC3e8nBycg&t=3040s",
-  "main": "index.js",
+  "main": "src/index.js",
   "scripts": {
     "dev": "node_modules/.bin/nodemon src/index.js",
+    "start": "node src/index.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],

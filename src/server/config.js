@@ -7,7 +7,7 @@ const express = require('express');
 const errorHandler = require('errorhandler');
 const routes = require('../routes');
 module.exports = app => {
-  
+
   // Settings
   app.set('port', process.env.PORT || 3000);
   app.set('views', path.join(__dirname, '../views'));

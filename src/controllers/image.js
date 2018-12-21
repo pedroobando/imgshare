@@ -1,14 +1,15 @@
 const ctrl = {};
 const path = require('path');
 const fs = require('fs-extra');
+const md5 = require('md5');
 const { randomNumber } = require('../helpers/libs');
 
 // const Image = require('../models/image');
-const { Image } = require('../models');
+const { Image, Comment } = require('../models');
 
 ctrl.index = async (req, res) => {
   const image = await Image.findOne({filename: {$regex: req.params.image_id}});
-  console.log(image);
+  // console.log(image);
   res.render('image', {image});
   // res.send(`Index page image ${req.param('image_id')}`);
   // console.log(`params: ${req.params.image_id}`)
@@ -57,7 +58,20 @@ ctrl.like = (req, res) => {
 
 };
 
-ctrl.comment = (req, res) => {
+ctrl.comment = async (req, res) => {
+  const image_id = req.params.image_id;
+  const image = await Image.findOne({filename: {$regex: image_id}});
+  if (image) {
+    const newComment = new Comment(req.body);
+    newComment.gravatar = md5(newComment.email);
+    newComment.image_id = image._id;
+    await newComment.save();
+    res.redirect(`/images/${image.uniqueId}`);
+    // console.log(newComment);
+  }
+  // res.send('Comentario Enviado');
+  // console.log(newComment);
+  // console.log(req.body);
 
 };
 
