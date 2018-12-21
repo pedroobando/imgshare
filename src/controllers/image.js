@@ -25,7 +25,7 @@ ctrl.create = async (req, res) => {
     imagescoll = await Image.find({ filename: imgUrl });
     // console.log(imagescoll);
   } while (imagescoll.length > 0);
-  
+
   const imageTempPath = req.file.path;
   const extfile = path.extname(req.file.originalname).toLocaleLowerCase();
   const targetPath = path.resolve(`${rutaImagenUpload}/${imgUrl}${extfile}`);
@@ -41,8 +41,8 @@ ctrl.create = async (req, res) => {
       filename: imgUrl + extfile
     });
     const imageSaved = await newImage.save();
-    res.send(`Image ${imgUrl + extfile} save work...!`);
-    // res.redirect('/images/:image_id');
+    // res.send(`Image ${imgUrl + extfile} save work...!`);
+    res.redirect(`/images/${imgUrl}`);
     // console.log(newImage);
   } else {
     // elimina la imagen de /temp
