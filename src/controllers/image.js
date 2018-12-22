@@ -8,10 +8,21 @@ const { randomNumber } = require('../helpers/libs');
 const { Image, Comment } = require('../models');
 
 ctrl.index = async (req, res) => {
+  const viewModel = { image: {}, comments: {}};
+
   const image = await Image.findOne({filename: {$regex: req.params.image_id}});
-  const thesecomments = await Comment.find({image_id: image._id});
-  // console.log(image);
-  res.render('image', {image, comments: thesecomments});
+  if (image) {
+    image.views = image.views + 1;
+    await image.save();
+    viewModel.image = image;
+    viewModel.comments = await Comment.find({image_id: image._id});
+    // const thesecomments = await Comment.find({image_id: image._id});
+
+    // res.render('image', {image, comments: thesecomments});
+    res.render('image', viewModel);
+  } else {
+    res.redirect('/');
+  }
   // res.send(`Index page image ${req.param('image_id')}`);
   // console.log(`params: ${req.params.image_id}`)
   // res.render('image');
@@ -55,8 +66,15 @@ ctrl.create = async (req, res) => {
   // res.send('work..!');
 };
 
-ctrl.like = (req, res) => {
-
+ctrl.like = async (req, res) => {
+  const image = await Image.findOne({filename: {$regex: req.params.image_id}});
+  if (image) {
+    image.likes = image.likes + 1;
+    await image.save();
+    res.json({likes: image.likes});
+  } else {
+    res.status(500).json({error: 'Internal Error, in like controller'});
+  }
 };
 
 ctrl.comment = async (req, res) => {
@@ -69,6 +87,8 @@ ctrl.comment = async (req, res) => {
     await newComment.save();
     res.redirect(`/images/${image.uniqueId}`);
     // console.log(newComment);
+  } else {
+    res.redirect('/');
   }
   // res.send('Comentario Enviado');
   // console.log(newComment);
