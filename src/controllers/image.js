@@ -9,8 +9,9 @@ const { Image, Comment } = require('../models');
 
 ctrl.index = async (req, res) => {
   const image = await Image.findOne({filename: {$regex: req.params.image_id}});
+  const thesecomments = await Comment.find({image_id: image._id});
   // console.log(image);
-  res.render('image', {image});
+  res.render('image', {image, comments: thesecomments});
   // res.send(`Index page image ${req.param('image_id')}`);
   // console.log(`params: ${req.params.image_id}`)
   // res.render('image');
