@@ -1,8 +1,8 @@
 <div class="card">
   <div class="card-header bg-dark">
-    <h3 class="card-title text-white">
+    <h5 class="card-title text-white">
       <i class="far fa-image"></i> Upload and Image
-    </h3>
+    </h5>
   </div>
   <div class="card-body">
     <form action="/images" method="POST" enctype="multipart/form-data">
@@ -32,14 +32,14 @@
 
 <div class="card mt-2">
   <div class="card-header bg-dark text-white">
-    <h3> <i class="far fa-images"></i> Recent Uploads</h3>
+    <h5> <i class="far fa-images"></i> Recent Uploads</h5>
   </div>
   <div class="card-body">
     <div class="row">
       {{#each images}}
-        <div class="col-md-4">
+        <div class="col-md-4 mb-2">
           <a href="/images/{{uniqueId}}">
-            <img src="/public/upload/{{filename}}" alt="" class="w-100 h-100 img-trumbnail">
+            <img src="/public/upload/{{filename}}" alt="" class="w-100 h-100 img-thumbnail">
           </a>
         </div>
       {{/each}}

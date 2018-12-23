@@ -6,9 +6,10 @@ const { randomNumber } = require('../helpers/libs');
 
 // const Image = require('../models/image');
 const { Image, Comment } = require('../models');
+const sidebar = require('../helpers/sidebar');
 
 ctrl.index = async (req, res) => {
-  const viewModel = { image: {}, comments: {}};
+  let viewModel = { image: {}, comments: {}};
 
   const image = await Image.findOne({filename: {$regex: req.params.image_id}});
   if (image) {
@@ -19,6 +20,9 @@ ctrl.index = async (req, res) => {
     // const thesecomments = await Comment.find({image_id: image._id});
 
     // res.render('image', {image, comments: thesecomments});
+    // let viewModel = {images: []};
+    // viewModel.images = images;
+    viewModel = await sidebar(viewModel);
     res.render('image', viewModel);
   } else {
     res.redirect('/');
