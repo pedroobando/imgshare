@@ -17,10 +17,11 @@ El video de la explicacion y elaboracion del proyecto, lo pueden encontrar [Aqui
 </p>
 
 ### Desarollado bajo
-    node.js (v8.11.1)
+    node.js (v8.14.0)
     express
     mongoose
     nodemon
+    bootstrap
     
 
 ### Base de datos
