@@ -3,11 +3,12 @@
 ### Proyecto Base
 Proyecto Nodejs y MongoDB Red Social, Proyecto desde Cero - Elaborado por [Fazt - Canal Youtube](https://www.youtube.com/channel/UCX9NJ471o7Wie1DQe94RVIg/videos)
 
+El video de la explicacion y elaboracion del proyecto, lo pueden encontrar [Aqui en Youtube](https://www.youtube.com/watch?v=TqC3e8nBycg&t=)
+ 
+
 ### Proposito
     Elaboracion de una red social, para subir images, donde se puede realizar comentarios, estatisticas visitas y likes.
     Usando nodejs, express, handlebar (platilla de vistas), mongo y mongoose.
-    El video de la explicacion y elaboracion del proyecto, lo pueden encontrar
-    [Aqui en Youtube](https://www.youtube.com/watch?v=TqC3e8nBycg&t=)
     
 
 <p align="center">
